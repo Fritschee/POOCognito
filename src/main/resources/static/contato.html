@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato - Premium Car Rental</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>Premium Car Rental</h1>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/fleet.html">Frota</a></li>
+          <li><a href="/detalhe.html">Detalhes</a></li>
+          <li><a href="/reservas.html">Reservas</a></li>
+          <li><a href="/avaliacoes.html">Avaliações</a></li>
+          <li><a href="/contato.html">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container contact-form">
+    <h2>Entre em Contato</h2>
+    <form action="/api/contato" method="POST">
+      <label for="contact-name">Nome</label>
+      <input type="text" id="contact-name" name="name" required>
+
+      <label for="contact-email">Email</label>
+      <input type="email" id="contact-email" name="email" required>
+
+      <label for="message">Mensagem</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+
+      <button type="submit" class="btn">Enviar Mensagem</button>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Premium Car Rental. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>

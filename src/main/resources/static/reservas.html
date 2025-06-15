@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Reservas</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>Premium Car Rental</h1>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/fleet.html">Frota</a></li>
+          <li><a href="/detalhe.html">Detalhes</a></li>
+          <li><a href="/reservas.html">Reservas</a></li>
+          <li><a href="/avaliacoes.html">Avaliações</a></li>
+          <li><a href="/contato.html">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Faça sua Reserva</h2>
+
+    <form id="reservaForm">
+      <label for="carro">Carro:</label>
+      <select id="carro" required>
+        <optgroup label="Esportivos">
+          <option value="2200">Ferrari F430 – R$2.200/dia</option>
+          <option value="4800">Ferrari SF90 Stradale – R$4.800/dia</option>
+          <option value="3200">Lamborghini Huracan – R$3.200/dia</option>
+          <option value="2900">Lamborghini Urus – R$2.900/dia</option>
+        </optgroup>
+        <optgroup label="Sedans">
+          <option value="280">Volkswagen Virtus – R$280/dia</option>
+          <option value="260">Honda City – R$260/dia</option>
+          <option value="1400">BMW M5 – R$1.400/dia</option>
+        </optgroup>
+        <optgroup label="SUVs">
+          <option value="1100">Kia EV9 2026 – R$1.100/dia</option>
+          <option value="950">Hyundai Palisade 2025 – R$950/dia</option>
+          <option value="980">BMW X3 2025 – R$980/dia</option>
+        </optgroup>
+      </select>
+
+      <label for="inicio">Data de Início:</label>
+      <input type="date" id="inicio" required>
+
+      <label for="fim">Data de Fim:</label>
+      <input type="date" id="fim" required>
+
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 1rem;">
+        <button type="button" id="btnCalcular">Calcular Preço</button>
+        <h3 id="resultado"></h3>
+        <button type="submit" id="btnConfirmar">Confirmar Reserva</button>
+      </div>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById('reservaForm');
+    const carroSelect = document.getElementById('carro');
+    const inicioInput = document.getElementById('inicio');
+    const fimInput = document.getElementById('fim');
+    const resultadoEl = document.getElementById('resultado');
+    const btnCalcular = document.getElementById('btnCalcular');
+
+    btnCalcular.addEventListener('click', () => {
+      const inicio = new Date(inicioInput.value);
+      const fim = new Date(fimInput.value);
+      const dias = (fim - inicio) / (1000 * 60 * 60 * 24);
+      const precoDia = parseFloat(carroSelect.value);
+      if (dias > 0) {
+        resultadoEl.innerText = `Total: R$ ${(dias * precoDia).toFixed(2)}`;
+      } else {
+        resultadoEl.innerText = "Datas inválidas.";
+      }
+    });
+
+    form.addEventListener('submit', e => {
+      e.preventDefault(); // impede o POST tradicional
+      const modelo = carroSelect.options[carroSelect.selectedIndex].text;
+      const precoPorDia = parseFloat(carroSelect.value);
+      const dataInicio = inicioInput.value;
+      const dataFim = fimInput.value;
+
+      fetch("/api/reservas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ modelo, precoPorDia, dataInicio, dataFim })
+      })
+      .then(res => {
+        if (!res.ok) throw new Error("Erro ao reservar.");
+        return res.json();
+      })
+      .then(data => {
+        alert("Reserva realizada com sucesso!");
+        console.log("Resposta da API:", data);
+        form.reset();
+        resultadoEl.innerText = '';
+      })
+      .catch(err => {
+        alert("Erro ao reservar. Verifique os dados.");
+        console.error(err);
+      });
+    });
+  </script>
+</body>
+</html>

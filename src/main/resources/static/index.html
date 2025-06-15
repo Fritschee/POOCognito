@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bem-vindo à Premium Car Rental</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .main-content {
+      max-width: 960px;
+      margin: 60px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .btn {
+      background-color: #e60000;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    .btn:hover {
+      background-color: #b30000;
+    }
+    @media (max-width: 600px) {
+      .highlights {
+        flex-direction: column;
+        gap: 30px;
+      }
+    }
+      .highlights {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin: 40px auto;
+        max-width: 960px;
+    }
+
+      .highlights article {
+        text-align: center;
+        width: 280px;
+    }
+
+      .highlights img {
+        width: 100%;
+        border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>Premium Car Rental</h1>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="fleet.html">Frota</a></li>
+          <li><a href="detalhe.html">Detalhes</a></li>
+          <li><a href="reservas.html">Reservas</a></li>
+          <li><a href="avaliacoes.html">Avaliações</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <h2>Bem-vindo à Premium Car Rental – Sua melhor escolha em aluguel de carros!</h2>
+    <p>É um prazer receber você! Na <strong>Premium Car Rental</strong>, trabalhamos todos os dias para oferecer a você conforto, segurança e liberdade para ir onde quiser, com tranquilidade e confiança.</p>
+    <p>Contamos com uma frota moderna, bem cuidada e com opções que atendem a todos os perfis – desde o carro econômico para o dia a dia até modelos mais robustos para viagens e aventuras.</p>
+    <p>Nosso compromisso é oferecer um atendimento personalizado, preços justos e total transparência em todo o processo de locação.</p>
+    <p>Seja para trabalho, lazer ou uma ocasião especial, conte conosco para tornar sua experiência ainda melhor.</p>
+    <p><strong>Estamos prontos para te colocar na estrada. Boa viagem!</strong></p>
+  </main>
+
+  <section class="highlights container">
+    <article>
+      <img src="/imagens/virtus.jpg" alt="Sedan">
+      <h3>Sedans Confortáveis</h3>
+      <p>Ideal para negócios ou viagens familiares. Conforto e economia garantidos.</p>
+    </article>
+    <article>
+      <img src="/imagens/ev9.jpg" alt="SUV">
+      <h3>SUVs Espaçosas</h3>
+      <p>Espaço, potência e sofisticação para qualquer destino.</p>
+    </article>
+    <article>
+      <img src="/imagens/f430.jpg" alt="Esportivo">
+      <h3>Esportivos Elegantes</h3>
+      <p>Para quem busca emoção, desempenho e design impressionante.</p>
+    </article>
+  </section>
+
+  <div class="container" style="text-align: center;">
+    <a class="btn" href="reservas.html">Reservar Agora</a>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2025 Premium Car Rental. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>
