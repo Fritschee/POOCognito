@@ -1,9 +1,11 @@
 package com.projetomvc.pucpr;
 
+import com.projetomvc.pucpr.security.SessionAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
@@ -11,11 +13,16 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-          // desabilita CSRF pra chamadas GET/redirect não darem 403
           .csrf(csrf -> csrf.disable())
 
-          // libera todo o fluxo de login/Cognito e assets estáticos
+          // registra nosso filtro de sessão antes do processamento padrão
+          .addFilterBefore(
+              new SessionAuthenticationFilter(),
+              UsernamePasswordAuthenticationFilter.class
+          )
+
           .authorizeHttpRequests(auth -> auth
+            // apenas login/Cognito e assets são públicos
             .requestMatchers(
                "/", 
                "/login**",
@@ -40,16 +47,11 @@ public class SecurityConfig {
                "/js/**"
             ).permitAll()
 
-            // libera todo o acesso aos endpoints REST /api/**
-            .requestMatchers("/api/**").permitAll()
+            // QUALQUER OUTRA ROTA agora exige sessão
             .anyRequest().authenticated()
           )
 
-          // *desativa* o HTTP Basic
-          .httpBasic(basic -> basic.disable())
-
-          // não habilita formLogin nem oauth2Login aqui, pois o login é tratado no seu controller
-          ;
+          .httpBasic(basic -> basic.disable());
 
         return http.build();
     }
