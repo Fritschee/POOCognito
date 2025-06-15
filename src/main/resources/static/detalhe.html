@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Detalhes do Carro</title>
+  <title>Detalhes do Veículo</title>
   <link rel="stylesheet" href="/css/styles.css">
   <style>
     .car-select { margin: 20px 0; }
@@ -29,10 +29,10 @@
   </header>
 
   <main class="container">
-    <h2>Escolha um carro para ver os detalhes</h2>
+    <h2>Escolha um veículo para ver os detalhes</h2>
     <div class="car-select">
       <label for="carro">Modelo:</label>
-      <select id="carro" onchange="mostrarDetalhes()">
+      <select id="carro">
         <optgroup label="Esportivos">
           <option value="f430">Ferrari F430</option>
           <option value="sf90">Ferrari SF90 Stradale</option>
@@ -49,137 +49,83 @@
           <option value="palisade">Hyundai Palisade 2025</option>
           <option value="x3">BMW X3 2025</option>
         </optgroup>
+        <optgroup label="Motos">
+          <option value="mt07">Yamaha MT-07</option>
+          <option value="cb500x">Honda CB 500X</option>
+          <option value="ninja400">Kawasaki Ninja 400</option>
+        </optgroup>
       </select>
     </div>
 
     <div id="detalhes" class="car-details"></div>
   </main>
 
-  <script>
-  const specs = {
-    f430: {
-      nome: "Ferrari F430",
-      img: "imagens/f430.jpg",
-      info: `
-        Motor V8 4.3L naturalmente aspirado com 483 hp.<br>
-        Aceleração de 0 a 100 km/h em 4 segundos.<br>
-        Tração traseira com câmbio F1 de 6 marchas automatizado.<br>
-        Interior em couro italiano, controle de tração, sistema de freios Brembo.<br>
-        Ideal para experiências esportivas e eventos especiais.
-      `
-    },
-    sf90: {
-      nome: "Ferrari SF90 Stradale",
-      img: "imagens/sf90.jpg",
-      info: `
-        Motor V8 biturbo híbrido + 3 motores elétricos, totalizando 1000 hp.<br>
-        0 a 100 km/h em apenas 2.5 segundos.<br>
-        Tração integral com vetorização de torque eletrônica.<br>
-        Autonomia elétrica de até 25 km, câmbio de dupla embreagem 8 marchas.<br>
-        Um dos superesportivos mais tecnológicos do mundo.
-      `
-    },
-    huracan: {
-      nome: "Lamborghini Huracan",
-      img: "imagens/huracan.jpg",
-      info: `
-        V10 5.2L com 610 hp, motor naturalmente aspirado.<br>
-        Tração integral com modo Corsa e Launch Control.<br>
-        Painel digital TFT configurável, faróis full LED, interior Alcantara.<br>
-        Aceleração de 0 a 100 km/h em 3.2 segundos.<br>
-        Sonoridade marcante e design agressivo.
-      `
-    },
-    urus: {
-      nome: "Lamborghini Urus",
-      img: "imagens/urus.jpg",
-      info: `
-        SUV de luxo com motor V8 4.0L biturbo e 650 hp.<br>
-        Tração integral com 6 modos de condução (Strada, Sport, Corsa, etc).<br>
-        Interior em couro e fibra de carbono, multimídia com telas duplas.<br>
-        Porta-malas de 616 litros, ideal para viagens com estilo e performance.<br>
-        Aceleração de 0 a 100 km/h em 3.6 segundos.
-      `
-    },
-    virtus: {
-      nome: "Volkswagen Virtus",
-      img: "imagens/virtus.jpg",
-      info: `
-        Motor 1.0 TSI com 128 hp, ideal para uso urbano e econômico.<br>
-        Câmbio automático de 6 marchas com modo Tiptronic.<br>
-        Central multimídia VW Play com tela de 10", Android Auto e CarPlay.<br>
-        Amplo porta-malas de 521 litros e bancos traseiros rebatíveis.<br>
-        Consumo médio: até 13 km/l na cidade.
-      `
-    },
-    city: {
-      nome: "Honda City",
-      img: "imagens/city.jpg",
-      info: `
-        Motor 1.5L i-VTEC com 126 hp e câmbio CVT inteligente.<br>
-        Painel digital, volante multifuncional, ar-condicionado automático.<br>
-        Sistema Honda Sensing com assistente de frenagem e alerta de faixa.<br>
-        Baixo custo de manutenção e excelente valor de revenda.<br>
-        Ideal para viagens e uso urbano confortável.
-      `
-    },
-    bmwM5: {
-      nome: "BMW M5",
-      img: "imagens/bmwM5.jpg",
-      info: `
-        Motor V8 4.4L TwinPower Turbo com 600 hp.<br>
-        Tração M xDrive com modos traseiro/integral e câmbio automático de 8 marchas.<br>
-        Interior com bancos esportivos aquecidos e HUD.<br>
-        Sistema de som Harman Kardon, controle adaptativo de suspensão.<br>
-        Luxo e esportividade combinados para executivos exigentes.
-      `
-    },
-    ev9: {
-      nome: "Kia EV9 2026",
-      img: "imagens/ev9.jpg",
-      info: `
-        SUV 100% elétrico com autonomia estimada de 500 km.<br>
-        Capacidade para 7 passageiros e cockpit digital panorâmico.<br>
-        Recarga ultrarrápida (de 10% a 80% em 20 min).<br>
-        Direção autônoma Nível 3 e tração nas quatro rodas.<br>
-        Ideal para famílias modernas que valorizam sustentabilidade.
-      `
-    },
-    palisade: {
-      nome: "Hyundai Palisade 2025",
-      img: "imagens/palisade.jpg",
-      info: `
-        SUV premium com motor V6 3.8L de 295 hp e câmbio automático de 8 marchas.<br>
-        Interior espaçoso com 3 fileiras, teto solar panorâmico, bancos ventilados.<br>
-        Sistema de som premium, monitoramento de ponto cego, câmera 360º.<br>
-        Ideal para longas viagens com conforto e segurança para até 8 pessoas.
-      `
-    },
-    x3: {
-      nome: "BMW X3 2025",
-      img: "imagens/x3.jpg",
-      info: `
-        Motor 2.0L TwinPower Turbo com 252 hp e tração xDrive.<br>
-        Pacote M Sport com suspensão adaptativa, volante esportivo e rodas de 19".<br>
-        Interior com acabamento em couro Vernasca e painel digital de 12".<br>
-        Ideal para quem busca um SUV premium de porte médio com alto desempenho.
-      `
+  <script type="module">
+    // Classe base
+    class Veiculo {
+      constructor(nome, img, info) {
+        this.nome = nome;
+        this.img = img;
+        this.info = info;
+      }
+      // Método polimórfico
+      getRodas() {
+        return this.rodas;
+      }
     }
-  };
 
-  function mostrarDetalhes() {
-    const selected = document.getElementById("carro").value;
-    const d = specs[selected];
-    document.getElementById("detalhes").innerHTML = `
-      <h3>${d.nome}</h3>
-      <img src="${d.img}" alt="${d.nome}" style="width:100%; border-radius: 8px;">
-      <div style="margin-top: 15px; line-height: 1.6;">
-        <p><strong>Especificações:</strong><br>${d.info}</p>
-      </div>
-      <a class="btn" href="/reservas.html">Reservar</a>
-    `;
-    document.getElementById("detalhes").classList.add("active");
-  }
+    // Subclasse Carro
+    class Carro extends Veiculo {
+      constructor(nome, img, info) {
+        super(nome, img, info);
+        this.rodas = 4;
+      }
+    }
+
+    // Subclasse Moto
+    class Moto extends Veiculo {
+      constructor(nome, img, info) {
+        super(nome, img, info);
+        this.rodas = 2;
+      }
+    }
+
+    // Instâncias de cada modelo
+    const specs = {
+      f430:   new Carro("Ferrari F430",   "imagens/f430.jpg",   `Motor V8 4.3L naturalmente aspirado com 483 hp.<br>Aceleração de 0 a 100 km/h em 4 segundos.`),
+      sf90:   new Carro("Ferrari SF90 Stradale", "imagens/sf90.jpg", `V8 biturbo + 3 elétricos, total de 1000 hp.`),
+      huracan:new Carro("Lamborghini Huracan","imagens/huracan.jpg", `V10 5.2L com 610 hp.`),
+      urus:   new Carro("Lamborghini Urus",   "imagens/urus.jpg",    `SUV de luxo V8 4.0L biturbo e 650 hp.`),
+      virtus: new Carro("Volkswagen Virtus",  "imagens/virtus.jpg",  `Motor 1.0 TSI com 128 hp.`),
+      city:   new Carro("Honda City",         "imagens/city.jpg",    `Motor 1.5L i-VTEC com 126 hp.`),
+      bmwM5:  new Carro("BMW M5",            "imagens/bmwM5.jpg",   `V8 TwinPower Turbo com 600 hp.`),
+      ev9:    new Carro("Kia EV9 2026",      "imagens/ev9.jpg",     `SUV elétrico, autonomia de 500 km.`),
+      palisade:new Carro("Hyundai Palisade", "imagens/palisade.jpg",`SUV premium V6 3.8L com 295 hp.`),
+      x3:     new Carro("BMW X3 2025",       "imagens/x3.jpg",      `TwinPower Turbo 2.0L com 252 hp.`),
+      mt07:   new Moto("Yamaha MT-07",       "imagens/yamahaMT07.jpg",`Motor de 689 cc, 75 hp.`),
+      cb500x: new Moto("Honda CB 500X",     "imagens/HondaCB500X.jpg",`Motor 471 cc, estilo adventure.`),
+      ninja400:new Moto("Kawasaki Ninja 400","imagens/ninja.jpg", `399 cc, 45 hp, carenagem aerodinâmica.`)
+    };
+
+    // Função que renderiza detalhes
+    export function mostrarDetalhes() {
+      const sel = document.getElementById("carro");
+      const veic = specs[sel.value];
+      const cont = document.getElementById("detalhes");
+      cont.innerHTML = `
+        <h3>${veic.nome}</h3>
+        <img src="${veic.img}" alt="${veic.nome}" style="width:100%; border-radius:8px;">
+        <div style="margin-top:15px; line-height:1.6;">
+          <p><strong>Especificações:</strong><br>${veic.info}</p>
+          <p><strong>Rodas:</strong> ${veic.getRodas()}</p>
+        </div>
+        <a class="btn" href="/reservas.html">Reservar</a>
+      `;
+      cont.classList.add("active");
+    }
+
+    // Listener de evento
+    document.getElementById("carro").addEventListener("change", mostrarDetalhes);
   </script>
 </body>
 </html>
