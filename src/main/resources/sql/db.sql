@@ -10,6 +10,11 @@ CREATE DATABASE `aluguelCarros`
 USE `aluguelCarros`;
 
 -- 4) Cria a tabela de reservas
+--    id: identificador único da reserva
+--    modelo: modelo do carro reservado
+--    inicio: data de início da reserva
+--    fim: data de término da reserva
+--    total: valor total da reserva
 CREATE TABLE `reserva` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `modelo` VARCHAR(255) NOT NULL,
